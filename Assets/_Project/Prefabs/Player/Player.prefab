@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 490341393}
-  - component: {fileID: 490341396}
   - component: {fileID: 490341395}
   - component: {fileID: 490341394}
   m_Layer: 6
@@ -34,18 +33,6 @@ Transform:
   m_Father: {fileID: 5585385618838140680}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &490341396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 490341392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddeb766af5023d74eb7eae9e49be5b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &490341395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd5a64ed74140c4cac4787c565c275d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1
 --- !u!114 &490341394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,10 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caeca6c0a07ae9349bc4bf2d7cce19cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asset: {fileID: -944628639613478452, guid: b06b7a177171e474bbff84d97aecc5a2, type: 3}
-  movementReference: {fileID: 2505003235036119756, guid: b06b7a177171e474bbff84d97aecc5a2, type: 3}
-  interactReference: {fileID: -3576698260850572265, guid: b06b7a177171e474bbff84d97aecc5a2, type: 3}
-  runToggleReference: {fileID: -6860589245860523007, guid: b06b7a177171e474bbff84d97aecc5a2, type: 3}
 --- !u!114 &8009276213974042026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,10 +274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
-  - {fileID: 490341396}
   - {fileID: 490341395}
   - {fileID: 490341394}
-  Components: {fileID: 5585385618838140726}
+  <Components>k__BackingField: {fileID: 5585385618838140726}
 --- !u!1 &5585385618879772202
 GameObject:
   m_ObjectHideFlags: 0

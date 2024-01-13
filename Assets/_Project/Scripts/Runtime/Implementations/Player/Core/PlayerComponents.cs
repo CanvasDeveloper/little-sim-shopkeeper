@@ -1,15 +1,17 @@
+using CanvasDEV.Runtime.Implementations.Player.Input;
 using UnityEngine;
 
-[RequireComponent(typeof(IInputController))]
+[RequireComponent(typeof(PlayerInputController))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerComponents : MonoBehaviour
 {
-    public IInputController InputController { get; private set; }
+    public PlayerInputController Input { get; private set; }
     public Rigidbody2D Rigidbody2D { get; private set; }
 
 
     private void Awake()
     {
-        InputController = GetComponent<IInputController>();
+        Input = GetComponent<PlayerInputController>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
     }
 }

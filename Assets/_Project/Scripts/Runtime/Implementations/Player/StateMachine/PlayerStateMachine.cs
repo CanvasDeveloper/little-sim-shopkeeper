@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class PlayerStateMachine : StateMachineBase
 {
-    [SerializeField] private PlayerComponents Components;
+    [field:SerializeField] public PlayerComponents Components { get; private set; }
 }

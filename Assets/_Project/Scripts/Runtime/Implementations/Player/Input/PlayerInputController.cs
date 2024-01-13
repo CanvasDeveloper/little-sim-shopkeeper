@@ -3,55 +3,54 @@ using UnityEngine.InputSystem;
 
 namespace CanvasDEV.Runtime.Implementations.Player.Input
 {
-    public class PlayerInputController : MonoBehaviour, IInputController
+    public class PlayerInputController : MonoBehaviour, IInputController, PlayerControl.IGameplayActions
     {
-        [SerializeField] private InputActionAsset asset;
-        [Space(10)]
-        [SerializeField] private InputActionReference movementReference;
-        [SerializeField] private InputActionReference interactReference;
-        [SerializeField] private InputActionReference runToggleReference;
-
         public Vector2 Movement { get; private set; }
         public bool Interact { get; private set; }
         public bool RunToggle { get; private set; }
 
+        private PlayerControl _control;
+
         private void Awake()
         {
-            movementReference.action.performed += MovementPerformed;
-            interactReference.action.started += InteractStarted;
-            runToggleReference.action.started += RunToggleStarted;
+            _control = new();
         }
 
-        private void OnDestroy()
+        private void Start()
         {
-            movementReference.action.performed -= MovementPerformed;
-            interactReference.action.started -= InteractStarted;
-            runToggleReference.action.started -= RunToggleStarted;
+            EnableInput();
         }
 
         public void EnableInput()
         {
-            asset.Enable();
+            _control.Gameplay.SetCallbacks(this);
+            _control.Gameplay.Enable();
         }
 
         public void DisableInput()
         {
-            asset.Disable();
+            _control.Disable();
         }
 
-        private void MovementPerformed(InputAction.CallbackContext context)
+        public void OnMovement(InputAction.CallbackContext context)
         {
             Movement = context.ReadValue<Vector2>().normalized;
         }
 
-        private void InteractStarted(InputAction.CallbackContext context)
+        public void OnInteract(InputAction.CallbackContext context)
         {
-            Interact = context.ReadValueAsButton();
+            if(context.started)
+            {
+                Interact = context.ReadValue<bool>();
+            }
         }
 
-        private void RunToggleStarted(InputAction.CallbackContext context)
+        public void OnRunToggle(InputAction.CallbackContext context)
         {
-            RunToggle = !RunToggle;
+            if(context.started)
+            {
+                RunToggle = !RunToggle;
+            }
         }
     }
 }
