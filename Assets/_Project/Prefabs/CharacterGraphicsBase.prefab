@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4183362894015316365}
   - component: {fileID: 4075774386062094268}
+  - component: {fileID: 2054986461008396160}
   m_Layer: 6
   m_Name: CharacterGraphicsBase
   m_TagString: Untagged
@@ -48,6 +49,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8fecdb553e82145826aeb5e5d31c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &2054986461008396160
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227065924131146864}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1559618312134531474
 GameObject:
   m_ObjectHideFlags: 0
