@@ -4,8 +4,6 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
 {
     public abstract class StateBase : MonoBehaviour
     {
-        protected StateMachineBase machine;
-
         public abstract void Setup(StateMachineBase machine);
 
         public virtual void OnEnter() { }
@@ -13,5 +11,10 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
         public virtual void OnLateUpdate() { }
         public virtual void OnFixedUpdate() { }
         public virtual void OnExit() { }
+
+        public virtual bool CanEnterState()
+        {
+            return true;
+        }
     }
 }

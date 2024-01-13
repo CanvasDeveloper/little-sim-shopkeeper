@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,17 +11,17 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
 
         protected StateBase currentState;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             states.ForEach(state => state.Setup(this));
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             ChangeState(states[0]);
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (currentState == null)
             {
@@ -30,7 +31,7 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
             currentState.OnUpdate();
         }
 
-        private void LateUpdate()
+        protected virtual void LateUpdate()
         {
             if (currentState == null)
             {
@@ -40,7 +41,7 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
             currentState.OnLateUpdate();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (currentState == null)
             {
@@ -53,6 +54,11 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
         private void ChangeState(StateBase toState)
         {
             if (currentState == toState)
+            {
+                return;
+            }
+
+            if(!toState.CanEnterState())
             {
                 return;
             }
@@ -82,6 +88,12 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
                 return;
             }
 
+            if(!foundedState.CanEnterState())
+            {
+                Debug.LogWarning($"Cannot enter on this state{foundedState.GetType()}! Called by: {gameObject.name}");
+                return;
+            }
+
             if (currentState != null)
             {
                 currentState.OnExit();
@@ -90,6 +102,14 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
             currentState = foundedState;
 
             currentState.OnEnter();
+        }
+
+        [Button]
+        public void GetStates()
+        {
+            states.Clear();
+
+            states.AddRange(GetComponentsInChildren<StateBase>());
         }
     }
 }
