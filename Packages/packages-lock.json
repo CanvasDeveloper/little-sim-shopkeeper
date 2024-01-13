@@ -280,6 +280,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "net.tnrd.serializableinterface": {
+      "version": "https://github.com/Thundernerd/Unity3D-SerializableInterface.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2a7a02f4187d7c9c60e3533352cfff0406fda9f6"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
