@@ -1,13 +1,19 @@
 using CanvasDEV.Editor.Core;
+using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 public class AnimationKeyFrameReplacer: EditorWindow
 {
-    private SpriteSheet oldSpriteSheet;
-    private SpriteSheet newSpriteSheet;
+    private SpriteSheet _newSpriteSheet;
 
-    private AnimationClip originalClip;
+    private BaseAnimationData _animationData;
+    private AnimatorOverrideController _animatorOverrideController;
+
+    private List<AnimationClip> _newClips = new();
+
+    private string _firstName;
 
     [MenuItem(CanvasDevEditorKeys.ToolsPath + "AnimationKeyFrame Replacer")]
     public static void ShowWindow()
@@ -19,16 +25,19 @@ public class AnimationKeyFrameReplacer: EditorWindow
     {
         GUILayout.Label("Animation Clip Copier", EditorStyles.boldLabel);
 
-        oldSpriteSheet = EditorGUILayout.ObjectField("Old Sprite Sheet", oldSpriteSheet, typeof(SpriteSheet), false) as SpriteSheet;
-        newSpriteSheet = EditorGUILayout.ObjectField("New Sprite Sheet", newSpriteSheet, typeof(SpriteSheet), false) as SpriteSheet;
+        _newSpriteSheet = EditorGUILayout.ObjectField("New Sprite Sheet", _newSpriteSheet, typeof(SpriteSheet), false) as SpriteSheet;
 
-        originalClip = EditorGUILayout.ObjectField("Original Animation Clip", originalClip, typeof(AnimationClip), false) as AnimationClip;
+        _animationData = EditorGUILayout.ObjectField("Base Animation Sheet", _animationData, typeof(BaseAnimationData), false) as BaseAnimationData;
+
+        _firstName = EditorGUILayout.TextField("New Clip First Name", _firstName);
+
+        EditorGUILayout.LabelField($"The clip will be created with name: {_firstName} + _lastWordOfBaseClip");
 
         if (GUILayout.Button("Copy Animation Clip"))
         {
-            if (originalClip != null)
+            if (_animationData != null)
             {
-                CopyAnimationClip(originalClip);
+                CopyAnimationClip(_animationData);
                 EditorUtility.DisplayDialog("Success", "Animation Clip copied with new sprites!", "OK");
             }
             else
@@ -38,46 +47,83 @@ public class AnimationKeyFrameReplacer: EditorWindow
         }
     }
 
-    private void CopyAnimationClip(AnimationClip original)
+    private void CopyAnimationClip(BaseAnimationData original)
     {
+        _newClips.Clear();
+
         Debug.Log("Copying Animation...");
 
-        string path = AssetDatabase.GetAssetPath(original);
-        AnimationClip newClip = Instantiate(original);
-        newClip.name = original.name + "_Copy";
-
-        // Replace sprites in AnimationClip
-        var editorCurves = AnimationUtility.GetObjectReferenceCurveBindings(newClip);
-        foreach (var editorCurveBinding in editorCurves)
+        foreach(var clip in original.clips)
         {
-            ObjectReferenceKeyframe[] keyframes = AnimationUtility.GetObjectReferenceCurve(newClip, editorCurveBinding);
-            for (int i = 0; i < keyframes.Length; i++)
-            {
-                keyframes[i].value = GetNewSprite(original, (Sprite)keyframes[i].value);
-            }
-            AnimationUtility.SetObjectReferenceCurve(newClip, editorCurveBinding, keyframes);
+            string path = AssetDatabase.GetAssetPath(clip);
+            AnimationClip newClip = Instantiate(clip);
 
-            // Assuming the property is a SpriteRenderer's sprite property
-            if (editorCurveBinding.type == typeof(Sprite))
+            string[] splittedClipName = clip.name.Split('_');
+            string lastWord = splittedClipName[splittedClipName.Length - 1];
+            string middleWord = splittedClipName[splittedClipName.Length - 2];
+
+            newClip.name = _firstName + "_" + middleWord + "_" + lastWord;
+
+            // Replace sprites in AnimationClip
+            var editorCurves = AnimationUtility.GetObjectReferenceCurveBindings(newClip);
+            foreach (var editorCurveBinding in editorCurves)
             {
-                Debug.Log("If");
+                ObjectReferenceKeyframe[] keyframes = AnimationUtility.GetObjectReferenceCurve(newClip, editorCurveBinding);
+                for (int i = 0; i < keyframes.Length; i++)
+                {
+                    keyframes[i].value = GetNewSprite(clip, (Sprite)keyframes[i].value);
+                }
+                AnimationUtility.SetObjectReferenceCurve(newClip, editorCurveBinding, keyframes);
+
+                // Assuming the property is a SpriteRenderer's sprite property
+                if (editorCurveBinding.type == typeof(Sprite))
+                {
+                    Debug.Log("If");
+                }
             }
+
+            string newPath = $"Assets/_Project/Art/Animations/Characters/{_firstName}/{newClip.name}.anim";
+
+            Directory.CreateDirectory(newPath);
+
+            AssetDatabase.CreateAsset(newClip, newPath);
+            AssetDatabase.SaveAssets();
+        
+            _newClips.Add(newClip);
         }
 
-        AssetDatabase.CreateAsset(newClip, path.Replace(".anim", "_Copy.anim"));
-        AssetDatabase.SaveAssets();
+        CreateAnimatorOverride();
+
         AssetDatabase.Refresh();
     }
 
     private Sprite GetNewSprite(AnimationClip original, Sprite oldSprite)
     {
-        Debug.Log("Get new Sprite");
+        int index = _animationData.spriteSheet.GetSpriteIndexOf(oldSprite);
 
-        int index = oldSpriteSheet.GetSpriteIndexOf(oldSprite);
+        Debug.Log($"Old: {index}: {oldSprite.name}");
+        Debug.Log($"New: {_newSpriteSheet.GetSpriteByIndex(index).name}");
 
-        Debug.Log($"{index}: {oldSprite.name}");
-        Debug.Log($"New: {newSpriteSheet.GetSpriteByIndex(index).name}");
+        return _newSpriteSheet.GetSpriteByIndex(index);
+    }
 
-        return newSpriteSheet.GetSpriteByIndex(index);
+    private void CreateAnimatorOverride()
+    {
+        _animatorOverrideController = new AnimatorOverrideController();
+        _animatorOverrideController.runtimeAnimatorController = _animationData.animatorController;
+
+        for (int i = 0; i < _animationData.clips.Length; i++)
+        {
+            AnimationClip clip = _animationData.clips[i];
+
+            _animatorOverrideController[clip.name] = _newClips[i];
+        }
+
+        string newPath = $"Assets/_Project/Art/Animations/Characters/{_firstName}/{_firstName}_Override.controller";
+
+        AssetDatabase.CreateAsset(_animatorOverrideController, newPath);
+        AssetDatabase.SaveAssets();
+
+        Debug.Log("Animator Override Controller Created!: " + newPath);
     }
 }
