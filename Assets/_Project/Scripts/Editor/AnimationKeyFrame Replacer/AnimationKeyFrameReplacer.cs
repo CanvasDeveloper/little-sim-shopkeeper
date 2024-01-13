@@ -35,7 +35,7 @@ public class AnimationKeyFrameReplacer: EditorWindow
 
         if (GUILayout.Button("Copy Animation Clip"))
         {
-            if (_animationData != null)
+            if (_animationData != null && string.IsNullOrEmpty(_firstName) == false)
             {
                 CopyAnimationClip(_animationData);
                 EditorUtility.DisplayDialog("Success", "Animation Clip copied with new sprites!", "OK");
