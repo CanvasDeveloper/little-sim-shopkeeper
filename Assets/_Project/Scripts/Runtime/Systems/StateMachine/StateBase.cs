@@ -11,5 +11,10 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
         public virtual void OnLateUpdate() { }
         public virtual void OnFixedUpdate() { }
         public virtual void OnExit() { }
+
+        public virtual bool CanEnterState()
+        {
+            return true;
+        }
     }
 }

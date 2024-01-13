@@ -58,6 +58,11 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
                 return;
             }
 
+            if(!toState.CanEnterState())
+            {
+                return;
+            }
+
             if (currentState != null)
             {
                 currentState.OnExit();
@@ -80,6 +85,12 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
 
             if (currentState.GetType() == foundedState.GetType())
             {
+                return;
+            }
+
+            if(!foundedState.CanEnterState())
+            {
+                Debug.LogWarning($"Cannot enter on this state{foundedState.GetType()}! Called by: {gameObject.name}");
                 return;
             }
 
