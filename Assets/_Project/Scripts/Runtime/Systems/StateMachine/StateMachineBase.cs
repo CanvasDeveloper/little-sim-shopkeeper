@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -90,6 +91,14 @@ namespace CanvasDEV.Runtime.Systems.StateMachine
             currentState = foundedState;
 
             currentState.OnEnter();
+        }
+
+        [Button]
+        public void GetStates()
+        {
+            states.Clear();
+
+            states.AddRange(GetComponentsInChildren<StateBase>());
         }
     }
 }
