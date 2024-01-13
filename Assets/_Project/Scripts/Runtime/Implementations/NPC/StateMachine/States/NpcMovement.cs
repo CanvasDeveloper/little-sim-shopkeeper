@@ -5,9 +5,6 @@ public class NpcMovement : NpcStateBase
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float runningSpeed = 1f;
 
-    private Vector2 _movementDirection;
-    private bool _isRunning;
-
     public override void OnUpdate()
     {
         //_movementInput = machine.Components.Input.Movement;
