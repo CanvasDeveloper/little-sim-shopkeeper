@@ -499,6 +499,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1837035745092937832, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 6cb3ed2031079a44fa8d6fed85b316cf, type: 2}
+    - target: {fileID: 2008175323881040135, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5585385618338323188, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
       propertyPath: m_Name
       value: Player
