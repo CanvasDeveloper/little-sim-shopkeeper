@@ -8,7 +8,9 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
         Normal,
         Smile,
         Happy,
-        Shocked
+        Shocked,
+        Angry,
+        Angry2
     }
 
     [Serializable]

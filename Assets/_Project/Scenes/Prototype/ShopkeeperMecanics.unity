@@ -2037,6 +2037,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1317397526}
     m_Modifications:
+    - target: {fileID: 1639514531768666067, guid: 2b425a08b28592145825fbef6b8ce628, type: 3}
+      propertyPath: _outlinable.unityReference
+      value: 
+      objectReference: {fileID: 1317397530}
     - target: {fileID: 6739027653834252571, guid: 2b425a08b28592145825fbef6b8ce628, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2991,6 +2995,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2984901807361329405, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5585385618338323188, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3039,7 +3047,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2984901807361329405, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3ec70771ab8027f4caa5ab7506f6df77, type: 3}
 --- !u!1001 &7540758787003985377
 PrefabInstance:

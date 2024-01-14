@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace CanvasDEV.Runtime.Systems.Interaction
 {
-    public abstract class Interactable : MonoBehaviour
+    public abstract class Interactable : MonoBehaviour, IOutline
     {
         public event Action<Interactable, bool> OnInteract;
         public event Action<Interactable> OnInteractableFounded;
         public event Action<Interactable> OnInteractableLeave;
+
+        public event Action<Color> OnAddedOutline;
+        public event Action OnRemovedOutline;
 
         protected Interactor interactor;
 
@@ -28,6 +31,7 @@ namespace CanvasDEV.Runtime.Systems.Interaction
         {
             this.interactor = interactor;
 
+            OnAddedOutline?.Invoke(Color.white);
             OnInteractableFounded?.Invoke(this);
         }
 
@@ -36,6 +40,7 @@ namespace CanvasDEV.Runtime.Systems.Interaction
             interactor = null;
 
             OnInteractableLeave?.Invoke(this);
+            OnRemovedOutline?.Invoke();
         }
 
         public virtual void EnableInteractable()

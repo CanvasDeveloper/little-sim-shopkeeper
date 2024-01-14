@@ -12,15 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0deab088066612458307c4fe80ccece, type: 3}
   m_Name: Shopkeeper
   m_EditorClassIdentifier: 
+  emotionData: {fileID: 11400000, guid: 2457db3df9e17e84988409f8eacf9206, type: 2}
   firstTimeDialogs:
   - speecherName: Shopkeeper
-    message: 'Hi! '
-    animation: 
+    emotion: 3
+    message: Ah! You scared me a bit.
     waitForOptions: 0
+    onFinishMessage: {fileID: 0}
   - speecherName: Shopkeeper
-    message: Hi! Can I help you with something?
-    animation: 
+    emotion: 0
+    message: Can I help you with something?
     waitForOptions: 0
+    onFinishMessage: {fileID: 0}
   options: []
-  secondTimeDialogs: []
+  secondTimeDialogs:
+  - speecherName: Shopkeeper
+    emotion: 1
+    message: Hi again! Need something?
+    waitForOptions: 0
+    onFinishMessage: {fileID: 0}
   timeBetweenChars: 0.025

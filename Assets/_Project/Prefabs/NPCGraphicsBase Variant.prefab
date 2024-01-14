@@ -9,8 +9,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1227065924131146864, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
       propertyPath: m_Name
-      value: CharacterGraphicsBase
+      value: NPCGraphicsBase Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1559618312134531472, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 758712c060cf6604ebd942b42a1a7fa8, type: 2}
+    - target: {fileID: 2080291757836364433, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 758712c060cf6604ebd942b42a1a7fa8, type: 2}
     - target: {fileID: 4183362894015316365, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -55,5 +63,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4658380939099317096, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 758712c060cf6604ebd942b42a1a7fa8, type: 2}
+    - target: {fileID: 4898191153456481983, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 758712c060cf6604ebd942b42a1a7fa8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa27041db9d94a49b33a8fcb995b46c, type: 3}
