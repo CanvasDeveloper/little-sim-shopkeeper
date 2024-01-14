@@ -19,6 +19,9 @@ public class DirectionalAnimation : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (_animator.runtimeAnimatorController == null)
+            return;
+
         _animator.SetFloat(LookDirecionXParam, source.Value.XDirection);
         _animator.SetFloat(LookDirecionYParam, source.Value.YDirection);
         _animator.SetBool(OnMovementParam, source.Value.OnMovement);

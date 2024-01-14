@@ -53,6 +53,15 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""84c18963-b5e7-4612-978f-b187ebe3aea5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -62,7 +71,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -73,7 +82,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -84,7 +93,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""RunToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -95,7 +104,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""RunToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -117,7 +126,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -128,7 +137,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -139,7 +148,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -150,7 +159,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -161,21 +170,109 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": ""StickDeadzone"",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94c8cc73-87c1-4544-8f51-29f704642846"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b52540a-0c20-4981-bd8f-2ec83f3ff4f1"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Chatting"",
+            ""id"": ""cb43c934-808f-4537-be7f-cd645d88d523"",
+            ""actions"": [
+                {
+                    ""name"": ""PassText"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd97f851-cc39-4498-94ad-b81218b018cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""098f2440-c6bc-4e0d-99c6-b167ec8e5ccd"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""PassText"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3963b1a0-f816-48ef-ab10-1def850ff7f8"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PassText"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_RunToggle = m_Gameplay.FindAction("RunToggle", throwIfNotFound: true);
+        m_Gameplay_OpenInventory = m_Gameplay.FindAction("OpenInventory", throwIfNotFound: true);
+        // Chatting
+        m_Chatting = asset.FindActionMap("Chatting", throwIfNotFound: true);
+        m_Chatting_PassText = m_Chatting.FindAction("PassText", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +335,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Interact;
     private readonly InputAction m_Gameplay_RunToggle;
+    private readonly InputAction m_Gameplay_OpenInventory;
     public struct GameplayActions
     {
         private @PlayerControl m_Wrapper;
@@ -245,6 +343,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputAction @RunToggle => m_Wrapper.m_Gameplay_RunToggle;
+        public InputAction @OpenInventory => m_Wrapper.m_Gameplay_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +362,9 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                 @RunToggle.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRunToggle;
                 @RunToggle.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRunToggle;
                 @RunToggle.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRunToggle;
+                @OpenInventory.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenInventory;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,14 +378,73 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                 @RunToggle.started += instance.OnRunToggle;
                 @RunToggle.performed += instance.OnRunToggle;
                 @RunToggle.canceled += instance.OnRunToggle;
+                @OpenInventory.started += instance.OnOpenInventory;
+                @OpenInventory.performed += instance.OnOpenInventory;
+                @OpenInventory.canceled += instance.OnOpenInventory;
             }
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // Chatting
+    private readonly InputActionMap m_Chatting;
+    private IChattingActions m_ChattingActionsCallbackInterface;
+    private readonly InputAction m_Chatting_PassText;
+    public struct ChattingActions
+    {
+        private @PlayerControl m_Wrapper;
+        public ChattingActions(@PlayerControl wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PassText => m_Wrapper.m_Chatting_PassText;
+        public InputActionMap Get() { return m_Wrapper.m_Chatting; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ChattingActions set) { return set.Get(); }
+        public void SetCallbacks(IChattingActions instance)
+        {
+            if (m_Wrapper.m_ChattingActionsCallbackInterface != null)
+            {
+                @PassText.started -= m_Wrapper.m_ChattingActionsCallbackInterface.OnPassText;
+                @PassText.performed -= m_Wrapper.m_ChattingActionsCallbackInterface.OnPassText;
+                @PassText.canceled -= m_Wrapper.m_ChattingActionsCallbackInterface.OnPassText;
+            }
+            m_Wrapper.m_ChattingActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @PassText.started += instance.OnPassText;
+                @PassText.performed += instance.OnPassText;
+                @PassText.canceled += instance.OnPassText;
+            }
+        }
+    }
+    public ChattingActions @Chatting => new ChattingActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
     public interface IGameplayActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnRunToggle(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
+    }
+    public interface IChattingActions
+    {
+        void OnPassText(InputAction.CallbackContext context);
     }
 }

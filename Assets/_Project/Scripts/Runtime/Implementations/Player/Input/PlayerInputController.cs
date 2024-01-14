@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CanvasDEV.Runtime.Implementations.Player.Input
 {
+    public class InputButton
+    {
+        public bool IsPressed;
+    }
+
     public class PlayerInputController : MonoBehaviour, IInputController, PlayerControl.IGameplayActions
     {
         public Vector2 Movement { get; private set; }
-        public bool Interact { get; private set; }
+        public InputButton InteractButton { get; private set; } = new();
+        public InputButton InventoryButton { get; private set; } = new();
         public bool RunToggle { get; private set; }
 
         private PlayerControl _control;
@@ -41,7 +48,7 @@ namespace CanvasDEV.Runtime.Implementations.Player.Input
         {
             if(context.started)
             {
-                Interact = context.ReadValue<bool>();
+                StartCoroutine(ButtonBehaviour(InteractButton));
             }
         }
 
@@ -51,6 +58,24 @@ namespace CanvasDEV.Runtime.Implementations.Player.Input
             {
                 RunToggle = !RunToggle;
             }
+        }
+
+        public void OnOpenInventory(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                StartCoroutine(ButtonBehaviour(InventoryButton));
+            }
+        }
+
+        public IEnumerator ButtonBehaviour(InputButton button)
+        {
+            button.IsPressed = true;
+
+            yield return new WaitForEndOfFrame();
+
+            button.IsPressed = false;
+
         }
     }
 }

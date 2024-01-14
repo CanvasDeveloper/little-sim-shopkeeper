@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: c28b727647533874f84cc6fcce88c93d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - RaccoonSerif
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 022054cb5dbd7a2488d8ee66570bff60, type: 3}
+  - {fileID: 12800000, guid: 1097afb73f6c586429d611d3c811a461, type: 3}
+  - {fileID: 12800000, guid: 3212422d46ae9934fb1511e22f2779c0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

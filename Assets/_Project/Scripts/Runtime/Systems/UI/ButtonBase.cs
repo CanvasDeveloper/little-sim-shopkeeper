@@ -5,11 +5,13 @@ namespace CanvasDEV.Runtime.Systems.UI.Core
 {
     public abstract class ButtonBase : MonoBehaviour
     {
-        protected Button button;
+        [SerializeField] protected Button button;
 
         private void Awake()
         {
-            button = GetComponent<Button>();
+            if(button == null)
+                button = GetComponent<Button>();
+            
             button.onClick.AddListener(ButtonBehaviour);
         }
 
