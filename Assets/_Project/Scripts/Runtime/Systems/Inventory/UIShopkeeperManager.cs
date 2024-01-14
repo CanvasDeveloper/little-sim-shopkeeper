@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIShopkeeperManager : MonoBehaviour
@@ -40,14 +41,16 @@ public class UIShopkeeperManager : MonoBehaviour
             return;
         }
 
-        Populate((ShopkeeperInventory)data);
+        _shopkeeperInventory = (ShopkeeperInventory)data;
+        _shopkeeperInventory.OnAddedItem += (newItem) => UpdateSlots();
+        _shopkeeperInventory.OnRemovedItem += (newItem) => UpdateSlots();
+
+        Populate(_shopkeeperInventory);
         Open();
     }
 
     private void Populate(ShopkeeperInventory data)
     {
-        _shopkeeperInventory = data;
-
         foreach(var slot in _shopSlotInstances)
         {
             slot.OnClicked -= PlayerBuy;
@@ -80,16 +83,31 @@ public class UIShopkeeperManager : MonoBehaviour
         _shopkeeperInventory.RemoveFromInventory(slot.GetItem().ItemData, 1);
         _playerInventory.AddToInventory(slot.GetItem().ItemData, 1);
 
-        slot.SetItem(slot.GetItem());
+        UpdateSlots();
+    }
+
+    private void UpdateSlots()
+    {
+        foreach (var instance in _shopSlotInstances)
+        {
+            instance.SetItem(instance.GetItem());
+        }
     }
 
     public void Open()
     {
         canvas.SetActive(true);
+
+        UpdateSlots();
     }
 
     public void Close()
     {
+        _shopkeeperInventory.OnAddedItem -= (newItem) => UpdateSlots();
+        _shopkeeperInventory.OnRemovedItem -= (newItem) => UpdateSlots();
+
+        _shopkeeperInventory = null;
+
         GameStateHandler.ChangeState(GameState.Gameplay);
         canvas.SetActive(false);
     }

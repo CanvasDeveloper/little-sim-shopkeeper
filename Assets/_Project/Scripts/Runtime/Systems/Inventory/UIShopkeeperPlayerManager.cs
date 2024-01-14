@@ -1,34 +1,33 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-//TODO: Split this class in: PlayerInventory, ShopkeeperInventory, MoneyManagement
+﻿using UnityEngine;
 
 public class UIShopkeeperPlayerManager: MonoBehaviour
 {
     private PlayerInventory _playerInventory;
     private ShopkeeperInventory _shopkeeperInventory;
 
-    [SerializeField] private UIShopInventorySlot inventoryShopSlotPrefab;
-    [SerializeField] private Transform inventorySlotParent;
-
-    private List<UIShopSlotBase> _inventorySlotInstances = new();
+    [SerializeField] private UIShopSlotBase[] inventorySlotInstances = new UIShopSlotBase[0];
 
     private void Start()
     {
         GameStateHandler.StateChanged += GameStateHandler_StateChanged;
 
         _playerInventory = FindObjectOfType<PlayerInventory>();
+
+        _playerInventory.OnAddedItem += (newItem) => UpdateSlots();
+        _playerInventory.OnRemovedItem += (newItem) => UpdateSlots();
     }
 
     private void OnDestroy()
     {
         GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
 
-        foreach (var slot in _inventorySlotInstances)
+        foreach (var slot in inventorySlotInstances)
         {
             slot.OnClicked -= PlayerSell;
         }
 
-        _inventorySlotInstances.Clear();
+        _playerInventory.OnAddedItem -= (newItem) => UpdateSlots();
+        _playerInventory.OnRemovedItem -= (newItem) => UpdateSlots();
     }
 
     private void GameStateHandler_StateChanged(GameState newState, object data)
@@ -38,6 +37,8 @@ public class UIShopkeeperPlayerManager: MonoBehaviour
             return;
         }
 
+        _shopkeeperInventory = (ShopkeeperInventory)data;
+
         PopulatePlayerInventory(_playerInventory);
     }
 
@@ -45,33 +46,37 @@ public class UIShopkeeperPlayerManager: MonoBehaviour
     {
         _playerInventory = playerInventory;
 
-        foreach (var slot in _inventorySlotInstances)
-        {
-            slot.OnClicked -= PlayerSell;
-            Destroy(slot.gameObject);
-        }
-
-        _inventorySlotInstances.Clear();
-
         var inventory = playerInventory.GetCurrentItems();
 
-        foreach (var item in inventory)
-        {
-            var slot = Instantiate(inventoryShopSlotPrefab, inventorySlotParent);
-            slot.SetItem(item);
-            slot.OnClicked += PlayerSell;
-
-            _inventorySlotInstances.Add(slot);
-        }
+        UpdateSlots();
     }
 
     private void PlayerSell(UIShopSlotBase slot)
     {
+        if(slot.GetItem() == null)
+        {
+            return;
+        }
+
         _playerInventory.AddMoney(slot.GetItem().ItemData.cost);
 
         _playerInventory.RemoveFromInventory(slot.GetItem().ItemData, 1);
         _shopkeeperInventory.AddToInventory(slot.GetItem().ItemData, 1);
 
-        slot.SetItem(slot.GetItem());
+        UpdateSlots();
+    }
+
+    private void UpdateSlots()
+    {
+        var inventory = _playerInventory.GetCurrentItems();
+
+        for (int i = 0; i < inventorySlotInstances.Length; i++)
+        {
+            var slot = inventorySlotInstances[i];
+            var item = (i < inventory.Count) ? inventory[i] : null;
+
+            slot.SetItem(item);
+            slot.OnClicked += PlayerSell;
+        }
     }
 }

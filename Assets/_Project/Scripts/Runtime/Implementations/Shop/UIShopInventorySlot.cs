@@ -12,8 +12,21 @@ public class UIShopInventorySlot : UIShopSlotBase
     {
         base.SetItem(newItem);
 
+        if(newItem == null || newItem.stack <= 0)
+        {
+            itemIcon.enabled = false;
+            itemIcon.sprite = null;
+            sellPriceGUI.text = "";
+            amountGUI.text = "";
+
+            button.interactable = false;
+
+            return;
+        }
+
         var cachedScriptable = _inventoryItemData.ItemData;
 
+        itemIcon.enabled = true;
         itemIcon.sprite = cachedScriptable.itemIcon;
         sellPriceGUI.text = cachedScriptable.cost.ToString();
         amountGUI.text = "<" + _inventoryItemData.stack.ToString() + ">";
