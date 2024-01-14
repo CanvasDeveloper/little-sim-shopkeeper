@@ -21,6 +21,9 @@ namespace EasyTransition
 
         private void Awake()
         {
+            if (instance != null)
+                Destroy(gameObject);
+
             instance = this;
         }
 

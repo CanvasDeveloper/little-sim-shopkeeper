@@ -292,7 +292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc62c0fa22cdcc429d3e616207ac8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  runtimeData: {fileID: 11400000, guid: 67514f5da59ef6f41ba4714418722fb6, type: 2}
+  playerStartMoney: 100
 --- !u!114 &5210637190433305803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +525,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGraphics Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2102832191359137323, guid: 0873c902c674d8d4ab3bf377819fb993, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0873c902c674d8d4ab3bf377819fb993, type: 3}
 --- !u!114 &6969224776393129988 stripped
 MonoBehaviour:

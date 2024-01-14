@@ -17,5 +17,5 @@ MonoBehaviour:
   itemDescription: A nice blue color!
   cost: 10
   stackable: 0
-  equipType: 4
+  equipType: 2
   overrideControler: {fileID: 22100000, guid: ca718709a9475ff4fa4ac7d04a048c2e, type: 2}

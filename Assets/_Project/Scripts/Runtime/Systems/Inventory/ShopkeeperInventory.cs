@@ -7,7 +7,7 @@ namespace CanvasDEV.Runtime.Systems.Inventory
     {
         public override void RemoveFromInventory(ItemDataBase item, int amount)
         {
-            var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item && slot.stack > 0);
+            var foundedItem = runtimeData.items.FirstOrDefault(slot => slot.ItemData == item && slot.stack > 0);
 
             foundedItem.stack -= amount;
 
@@ -21,12 +21,12 @@ namespace CanvasDEV.Runtime.Systems.Inventory
 
         public void ForceRemoveEmptyItems()
         {
-            for (int i = items.Count - 1; i >= 0; i--)
+            for (int i = runtimeData.items.Count - 1; i >= 0; i--)
             {
-                InventoryItemData item = items[i];
+                InventoryItemData item = runtimeData.items[i];
                 if (item.stack <= 0)
                 {
-                    items.Remove(item);
+                    runtimeData.items.Remove(item);
                 }
             }
         }

@@ -9,6 +9,7 @@ namespace CanvasDEV.Runtime.Core.GameState
         Chatting,
         Inventory,
         Shop,
+        Load,
     }
 
     public static class GameStateHandler

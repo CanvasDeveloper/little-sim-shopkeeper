@@ -17,13 +17,13 @@ namespace CanvasDEV.Runtime.Systems.Inventory
         public event Action<InventoryItemData> OnAddedItem;
         public event Action<InventoryItemData> OnRemovedItem;
 
-        [SerializeField] protected List<InventoryItemData> items;
+        [SerializeField] protected RuntimeInventory runtimeData;
 
         public virtual void AddToInventory(ItemDataBase item, int amount)
         {
             if (item.stackable)
             {
-                var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item);
+                var foundedItem = runtimeData.items.FirstOrDefault(slot => slot.ItemData == item);
 
                 if (foundedItem != null)
                 {
@@ -39,19 +39,19 @@ namespace CanvasDEV.Runtime.Systems.Inventory
                 stack = amount
             };
 
-            items.Add(newInventorytem);
+            runtimeData.items.Add(newInventorytem);
             TriggerAddedEvent(newInventorytem);
         }
 
         public virtual void RemoveFromInventory(ItemDataBase item, int amount)
         {
-            var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item);
+            var foundedItem = runtimeData.items.FirstOrDefault(slot => slot.ItemData == item);
 
             foundedItem.stack -= amount;
 
             if (foundedItem.stack <= 0)
             {
-                items.Remove(foundedItem);
+                runtimeData.items.Remove(foundedItem);
             }
 
             TriggerRemoveEvent(foundedItem);
@@ -70,14 +70,14 @@ namespace CanvasDEV.Runtime.Systems.Inventory
 
         public bool HasItemAmount(ItemDataBase item, int amount)
         {
-            var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item);
+            var foundedItem = runtimeData.items.FirstOrDefault(slot => slot.ItemData == item);
 
             return foundedItem != null && foundedItem.stack >= amount;
         }
 
         public List<InventoryItemData> GetCurrentItems()
         {
-            return items;
+            return runtimeData.items;
         }
 
         public abstract void Open();

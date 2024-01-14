@@ -29,6 +29,11 @@ namespace CanvasDEV.Runtime.Implementations.Player.Input
             EnableInput();
         }
 
+        private void OnDestroy()
+        {
+            DisableInput();
+        }
+
         public void EnableInput()
         {
             _control.Gameplay.SetCallbacks(this);
@@ -37,6 +42,7 @@ namespace CanvasDEV.Runtime.Implementations.Player.Input
 
         public void DisableInput()
         {
+            _control.Gameplay.SetCallbacks(null);
             _control.Disable();
         }
 

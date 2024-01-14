@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CanvasDEV.Runtime.Systems.Interaction
 {
     public abstract class Interactable : MonoBehaviour, IOutline
     {
+        [SerializeField] private Collider2D interactorCollider;
+
         public event Action<Interactable, bool> OnInteract;
         public event Action<Interactable> OnInteractableFounded;
         public event Action<Interactable> OnInteractableLeave;
@@ -46,11 +49,15 @@ namespace CanvasDEV.Runtime.Systems.Interaction
         public virtual void EnableInteractable()
         {
             CanInteract = true;
+
+            interactorCollider.enabled = true;
         }
 
         public virtual void DisableInteractable()
         {
             CanInteract = false;
+
+            interactorCollider.enabled = false;
         }
     }
 }

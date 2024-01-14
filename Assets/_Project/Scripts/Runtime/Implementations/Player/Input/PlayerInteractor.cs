@@ -15,7 +15,12 @@ public class PlayerInteractor : MonoBehaviour
 
         if(components.Input.InteractButton.IsPressed)
         {
-            interactor.GetCurrentInteractable().Interact();
+            var interactable = interactor.GetCurrentInteractable();
+
+            if(interactable != null)
+            {
+                interactable.Interact();
+            }
         }
     }
 }

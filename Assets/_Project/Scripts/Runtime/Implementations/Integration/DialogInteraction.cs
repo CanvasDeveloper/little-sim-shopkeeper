@@ -11,6 +11,7 @@ public class DialogInteraction : Interactable, IBlocker
     public List<IBlockable> Blockables { get; set; } = new();
 
     [SerializeField] private bool shouldBlockInteractor;
+    [SerializeField] private bool callGameState;
 
     public override bool InteractBehaviour()
     {
@@ -54,6 +55,11 @@ public class DialogInteraction : Interactable, IBlocker
 
     public void UnBlock()
     {
+        if(callGameState)
+        {
+            GameStateHandler.ChangeState(GameState.Gameplay);
+        }
+
         foreach (var block in Blockables)
         {
             block.Blocked = false;

@@ -17,5 +17,5 @@ MonoBehaviour:
   itemDescription: 
   cost: 10
   stackable: 0
-  equipType: 1
+  equipType: 3
   overrideControler: {fileID: 22100000, guid: 4098b389139c8fe449ec07453bc8afaf, type: 2}
