@@ -12,16 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0deab088066612458307c4fe80ccece, type: 3}
   m_Name: Mother
   m_EditorClassIdentifier: 
-  emotionData: {fileID: 11400000, guid: 2457db3df9e17e84988409f8eacf9206, type: 2}
+  emotionData: {fileID: 11400000, guid: fd4a5f6112be35d44a13fcad8a3422e0, type: 2}
   firstTimeDialogs:
-  - speecherName: Shopkeeper
+  - speecherName: Mom
     emotion: 3
-    message: Ah! You scared me a bit.
+    message: 'Hey, son! '
     waitForOptions: 0
     onFinishMessage: {fileID: 0}
-  - speecherName: Shopkeeper
-    emotion: 0
-    message: Can I help you with something?
+  - speecherName: Mom
+    emotion: 4
+    message: What are you doing with your clothes off?
+    waitForOptions: 0
+    onFinishMessage: {fileID: 0}
+  - speecherName: Mom
+    emotion: 6
+    message: Oh, that's right, I forgot to wash them all...
+    waitForOptions: 0
+    onFinishMessage: {fileID: 0}
+  - speecherName: Mom
+    emotion: 5
+    message: Ah!
+    waitForOptions: 0
+    onFinishMessage: {fileID: 0}
+  - speecherName: Mom
+    emotion: 7
+    message: The shopkeeper is making all the clothes very cheap today!
+    waitForOptions: 0
+    onFinishMessage: {fileID: 0}
+  - speecherName: Mom
+    emotion: 1
+    message: Take that money and buy yourself some.
     waitForOptions: 0
     onFinishMessage: {fileID: 0}
   options: []

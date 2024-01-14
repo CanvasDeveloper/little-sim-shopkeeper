@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5136558917705159571}
   - component: {fileID: 5136558917705159568}
   - component: {fileID: 5136558917705159574}
+  - component: {fileID: 63277455062693307}
   m_Layer: 0
   m_Name: MotherNPC
   m_TagString: Untagged
@@ -126,8 +127,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5136558917705159568}
-        m_TargetAssemblyTypeName: DialogInteraction, Assembly-CSharp
-        m_MethodName: UnBlock
+        m_TargetAssemblyTypeName: CanvasDEV.Runtime.Systems.Interaction.Interactable,
+          Assembly-CSharp
+        m_MethodName: DisableInteractable
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -137,7 +139,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  dialogData: {fileID: 11400000, guid: 950f35cc1029545488e981a8d9c8f8a3, type: 2}
+      - m_Target: {fileID: 63277455062693307}
+        m_TargetAssemblyTypeName: DOMovement, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogData: {fileID: 11400000, guid: 357d6cfb245646340a11c37616a132fa, type: 2}
 --- !u!114 &5136558917705159568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +181,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.024240553, y: -0.2699781}
+  m_Offset: {x: 0.022984564, y: 0.0008716583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -178,8 +192,23 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4515189, y: 0.39779323}
+  m_Size: {x: 0.3237334, y: 0.40057123}
   m_EdgeRadius: 0
+--- !u!114 &63277455062693307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136558917705159583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c8e63ca06022c4394ce6ce9a5983db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationValues: {fileID: 1752790559591147339}
+  target: {fileID: 0}
+  moveTime: 2
 --- !u!1001 &5136558917304526945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,6 +274,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b425a08b28592145825fbef6b8ce628, type: 3}
+--- !u!114 &1752790559591147339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6853230295510650666, guid: 2b425a08b28592145825fbef6b8ce628, type: 3}
+  m_PrefabInstance: {fileID: 5136558917304526945}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8fecdb553e82145826aeb5e5d31c02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1931319579831568762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6739027653834252571, guid: 2b425a08b28592145825fbef6b8ce628, type: 3}

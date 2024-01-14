@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Female_Under
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 21300000, guid: ce3523a512250c04d95e3b3767ade3e6, type: 3}
-  itemName: Mid Hair
+  itemName: Female Underwear
   itemDescription: 
   cost: 10
   stackable: 0

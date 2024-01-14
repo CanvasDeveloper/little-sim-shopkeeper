@@ -10,7 +10,9 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
         Happy,
         Shocked,
         Angry,
-        Angry2
+        Angry2,
+        Confused,
+        Smug
     }
 
     [Serializable]

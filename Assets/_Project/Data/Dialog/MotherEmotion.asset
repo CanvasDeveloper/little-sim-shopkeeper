@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: MotherEmotion
   m_EditorClassIdentifier: 
   Emotion:
-  - emotion: 3
-    sprite: {fileID: 21300000, guid: 1e12b068b2bef6145a4f7ad977f70a9c, type: 3}
   - emotion: 0
-    sprite: {fileID: 21300000, guid: 92512699cd9967645b7244aad1e26cbb, type: 3}
+    sprite: {fileID: 21300000, guid: 11ae138b104dbf146877925f09effb4f, type: 3}
+  - emotion: 4
+    sprite: {fileID: 21300000, guid: 5d2e462581471b942b7e1e4c8d03d661, type: 3}
+  - emotion: 5
+    sprite: {fileID: 21300000, guid: 87df3e410db092947b8d3837d3850fda, type: 3}
+  - emotion: 6
+    sprite: {fileID: 21300000, guid: e5acc05e1c5b9394f8fa8e67ac465bcb, type: 3}
   - emotion: 1
-    sprite: {fileID: 21300000, guid: e629338c03c88b247abc230f2fc26158, type: 3}
-  - emotion: 2
-    sprite: {fileID: 21300000, guid: c86a8d17b0fadb844b8268e2bf4b0066, type: 3}
+    sprite: {fileID: 21300000, guid: ec113e4f198839d4dab08f3d4d79c97c, type: 3}
+  - emotion: 7
+    sprite: {fileID: 21300000, guid: 3ce68a5a5a813b641bea72398cf2e3cc, type: 3}
+  - emotion: 3
+    sprite: {fileID: 21300000, guid: 7768c4813a7c1994e97d045e6a2a047a, type: 3}

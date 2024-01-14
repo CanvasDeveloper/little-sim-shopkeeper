@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Male_Under
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 21300000, guid: f23127ba61207804b940188ff067d21c, type: 3}
-  itemName: Mid Hair
+  itemName: Male Underwear
   itemDescription: 
   cost: 10
   stackable: 0
   equipType: 3
-  overrideControler: {fileID: 22100000, guid: 4098b389139c8fe449ec07453bc8afaf, type: 2}
+  overrideControler: {fileID: 22100000, guid: 57e11ff9ca2f3a948bea3b9af3de5421, type: 2}
