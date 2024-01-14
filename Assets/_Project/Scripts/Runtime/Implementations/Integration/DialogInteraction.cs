@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogInteraction : Interactable, IBlocker
 {
     [SerializeField] private DialogTrigger trigger;
-    [field:SerializeField] public List<IBlockable> Blockables { get; set; }
+    public List<IBlockable> Blockables { get; set; } = new();
 
     [SerializeField] private bool shouldBlockInteractor;
 
@@ -19,6 +19,7 @@ public class DialogInteraction : Interactable, IBlocker
 
         if(shouldBlockInteractor)
         {
+            GameStateHandler.ChangeState(GameState.Chatting);
             trigger.RegisterBlocker(this);
         }
 

@@ -1,4 +1,4 @@
-﻿public class NpcInteract : PlayerStateBase
+﻿public class NpcInteract : NpcStateBase
 {
 
 }
