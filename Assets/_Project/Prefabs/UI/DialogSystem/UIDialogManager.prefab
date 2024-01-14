@@ -185,8 +185,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogPanel: {fileID: 267982461223142810}
-  nameGUI: {fileID: 6361253972441695536}
-  textGUI: {fileID: 1205886272928388296}
+  nameGUI: {fileID: 1205886272928388296}
+  textGUI: {fileID: 6361253972441695536}
+  emotionImage: {fileID: 8964804007495323346}
   buttonPrefab: {fileID: 9005836819747600025, guid: a450173476e87a94cad448d6c4db1a0f, type: 3}
   parent: {fileID: 3491425231300155992}
 --- !u!1 &7616044667013745451
@@ -394,3 +395,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5008419613543055498, guid: 9b755509c3a3df14c8bbdf17509ef716, type: 3}
   m_PrefabInstance: {fileID: 2028229354288077166}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8964804007495323346 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6939156856268756924, guid: 9b755509c3a3df14c8bbdf17509ef716, type: 3}
+  m_PrefabInstance: {fileID: 2028229354288077166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

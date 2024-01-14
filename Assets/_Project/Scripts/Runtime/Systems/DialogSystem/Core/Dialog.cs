@@ -1,23 +1,29 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
 {
+    public enum Emotion
+    {
+        Normal,
+        Smile,
+        Happy,
+        Shocked
+    }
+
     [Serializable]
     public class Dialog
     {
         public string speecherName;
 
+        public Emotion emotion;
 
         [TextArea]
         public string message;
 
-        public string animation = "Trainer_Talking_1";
-
         public bool waitForOptions;
 
-        public UnityAction onFinishMessage;
+        public DialogEvent onFinishMessage;
     }
 
     [Serializable]

@@ -6,6 +6,8 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
     [CreateAssetMenu(fileName = "New Dialogs", menuName = CanvasDevKeys.ScriptablePath + "Dialog/Dialog Data")]
     public class DialogData : ScriptableObject
     {
+        public EmotionData emotionData;
+
         public Dialog[] firstTimeDialogs;
 
         [Header("Options")]

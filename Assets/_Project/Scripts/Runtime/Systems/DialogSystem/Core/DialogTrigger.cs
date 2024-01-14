@@ -5,17 +5,24 @@ using System;
 using NaughtyAttributes;
 using CanvasDEV.Runtime.Systems.DialogSystem.UI;
 using CanvasDEV.Runtime.Systems.DialogSystem.Utilities;
+using CanvasDEV.Runtime.Core.Interfaces;
 
 namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
 {
+    public struct GlobalDialogUpdate
+    {
+        public Sprite speakerEmotion;
+        public string speakerName;
+        public string text;
+    }
+
     public class DialogTrigger : MonoBehaviour
     {
-        public event Action<string, string> OnUpdateGlobalDialogText;
+        public event Action<GlobalDialogUpdate> OnUpdateGlobalDialogText;
         public event Action OnDialogStart;
         public event Action<bool> OnDialogFinished;
         public event Action<DialogTrigger, Dialogs[]> OnRequestOptions;
 
-        [SerializeField] private bool forceInteractorBlocked;
         [SerializeField] private bool useRandomName;
 
         [ShowIf("useRandomName")]
@@ -34,6 +41,8 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
         private int _count;
         private bool _isTypping;
         private bool _isWaitingForOptions;
+
+        private IBlocker _currentBlocker;
 
         private UIDialogManager _uiDialogManager;
 
@@ -86,8 +95,7 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
                 _targetDialogs = dialogData.secondTimeDialogs;
             }
 
-            if (forceInteractorBlocked) { }
-            //_playerController.IsChatting = true;
+            _currentBlocker?.Block();
 
             StartCoroutine(Typewritter());
             OnDialogStart?.Invoke();
@@ -98,14 +106,22 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
         {
             _isTypping = true;
 
-            var chars = _targetDialogs[_currentIndex].message.ToCharArray();
+            var cachedDialog = _targetDialogs[_currentIndex];
+
+            var chars = cachedDialog.message.ToCharArray();
 
             string phase = "";
 
             for (int i = 0; i < chars.Length; i++)
             {
                 phase += chars[i];
-                UpdateText(_targetDialogs[_currentIndex].speecherName, phase);
+
+                UpdateText(new GlobalDialogUpdate()
+                {
+                    speakerEmotion = dialogData.emotionData ? dialogData.emotionData.GetSpriteByEmotion(cachedDialog.emotion) : null,
+                    speakerName = cachedDialog.speecherName,
+                    text = phase
+                });
 
                 yield return new WaitForSeconds(dialogData.timeBetweenChars);
             }
@@ -119,7 +135,14 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
             if (_isTypping)
             {
                 StopAllCoroutines();
-                UpdateText(_targetDialogs[_currentIndex].speecherName, _targetDialogs[_currentIndex].message);
+
+                var cachedDialog = _targetDialogs[_currentIndex];
+                UpdateText(new GlobalDialogUpdate()
+                {
+                    speakerEmotion = dialogData.emotionData ? dialogData.emotionData.GetSpriteByEmotion(cachedDialog.emotion) : null,
+                    speakerName = cachedDialog.speecherName,
+                    text = cachedDialog.message
+                });
 
                 _isTypping = false;
                 return;
@@ -134,7 +157,12 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
             {
                 _isWaitingForOptions = true;
 
-                UpdateText("", "");
+                UpdateText(new GlobalDialogUpdate()
+                {
+                    speakerEmotion = null,
+                    speakerName = "",
+                    text = ""
+                });
 
                 OnRequestOptions?.Invoke(this, dialogData.options);
 
@@ -167,7 +195,12 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
 
             _currentIndex = 0;
 
-            UpdateText("", "");
+            UpdateText(new GlobalDialogUpdate()
+            {
+                speakerEmotion = null,
+                speakerName = "",
+                text = ""
+            });
 
             bool allOptionsSelected = true;
 
@@ -179,6 +212,9 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
                 }
             }
 
+            _currentBlocker?.UnBlock();
+            _currentBlocker = null;
+
             OnDialogFinished?.Invoke(allOptionsSelected);
 
             passButtonReference.action.started -= PassText;
@@ -186,14 +222,14 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
             Started = false;
         }
 
-        private void UpdateText(string name, string text)
+        private void UpdateText(GlobalDialogUpdate dialogUpdate)
         {
             if (useRandomName)
             {
                 name = randomName;
             }
 
-            OnUpdateGlobalDialogText?.Invoke(name, text);
+            OnUpdateGlobalDialogText?.Invoke(dialogUpdate);
         }
 
         public void SetOption(int index)
@@ -211,6 +247,11 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
         public void ForcedSetOption(int index)
         {
             SetOption(index);
+        }
+
+        public void RegisterBlocker(IBlocker blocker)
+        {
+            _currentBlocker = blocker;
         }
     }
 }

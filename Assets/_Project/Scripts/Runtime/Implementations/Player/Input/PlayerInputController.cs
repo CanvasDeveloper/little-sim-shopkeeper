@@ -41,7 +41,7 @@ namespace CanvasDEV.Runtime.Implementations.Player.Input
         {
             if(context.started)
             {
-                Interact = context.ReadValue<bool>();
+                Interact = context.ReadValueAsButton();
             }
         }
 

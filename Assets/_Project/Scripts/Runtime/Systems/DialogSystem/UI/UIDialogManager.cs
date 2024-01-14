@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CanvasDEV.Runtime.Systems.DialogSystem.UI
 {
@@ -11,6 +12,7 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.UI
 
         [SerializeField] private TextMeshProUGUI nameGUI;
         [SerializeField] private TextMeshProUGUI textGUI;
+        [SerializeField] private Image emotionImage;
         [SerializeField] private UIDialogButton buttonPrefab;
 
         [SerializeField] private Transform parent;
@@ -111,10 +113,13 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.UI
             instances.Clear();
         }
 
-        private void DialogTrigger_OnUpdateGlobalDialogText(string name, string message)
+        private void DialogTrigger_OnUpdateGlobalDialogText(GlobalDialogUpdate dialogUpdated)
         {
-            nameGUI.text = name;
-            textGUI.text = message;
+            nameGUI.text = dialogUpdated.speakerName;
+            textGUI.text = dialogUpdated.text;
+
+            emotionImage.enabled = dialogUpdated.speakerEmotion;
+            emotionImage.sprite = dialogUpdated.speakerEmotion;
         }
     }
 }

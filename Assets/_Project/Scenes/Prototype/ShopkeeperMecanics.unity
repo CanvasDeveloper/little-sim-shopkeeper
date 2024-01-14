@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 1317397526}
   - component: {fileID: 1317397528}
   - component: {fileID: 1317397527}
+  - component: {fileID: 1317397529}
+  - component: {fileID: 1317397530}
   m_Layer: 0
   m_Name: NPCBase
   m_TagString: Untagged
@@ -195,6 +197,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1317397529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317397525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16724ded51c070e4d88a7fd905688a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRandomName: 0
+  randomNameData: {fileID: 0}
+  randomName: 
+  passButtonReference: {fileID: -3576698260850572265, guid: b06b7a177171e474bbff84d97aecc5a2, type: 3}
+  dialogData: {fileID: 11400000, guid: 950f35cc1029545488e981a8d9c8f8a3, type: 2}
+--- !u!114 &1317397530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317397525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864493a968824e04d924173ae9f34d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 1317397529}
+  shouldBlockInteractor: 0
 --- !u!1001 &1457954795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,6 +290,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6739027653834252571, guid: 2b425a08b28592145825fbef6b8ce628, type: 3}
   m_PrefabInstance: {fileID: 1457954795}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1741631337
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 267982461223142810, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838922, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325620503255838923, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
+      propertyPath: m_Name
+      value: UIDialogManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7e53cb3708dce14982c7a2c15f9725e, type: 3}
 --- !u!1 &1773688338
 GameObject:
   m_ObjectHideFlags: 0
