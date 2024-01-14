@@ -12,16 +12,22 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+        var cachedAnimationComponent = Components.AnimationValues;
+
         if (Components.IsPlayerBlocked)
         {
+            cachedAnimationComponent.OnMovement = false;
+            cachedAnimationComponent.IsRunning = false;
+
             _isRunning = false;
+            _movementInput = Vector2.zero;
+
             return;
         }
 
         _movementInput = Components.Input.Movement;
         _isRunning = Components.Input.RunToggle;
 
-        var cachedAnimationComponent = Components.AnimationValues;
 
         bool isMoving = _movementInput.magnitude != 0f;
 
@@ -37,6 +43,11 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (Components.IsPlayerBlocked)
+        {
+            return;
+        }
+
         var cachedRigidbody = Components.Rigidbody2D;
         var desiredSpeed = _isRunning ? runningSpeed : moveSpeed;
 
