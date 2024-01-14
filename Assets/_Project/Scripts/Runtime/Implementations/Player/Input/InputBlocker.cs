@@ -14,7 +14,7 @@ public class InputBlocker : MonoBehaviour
 		GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
 	}
 
-    private void GameStateHandler_StateChanged(GameState newState)
+    private void GameStateHandler_StateChanged(GameState newState, object data)
     {
         components.IsPlayerBlocked = newState != GameState.Gameplay;
     }

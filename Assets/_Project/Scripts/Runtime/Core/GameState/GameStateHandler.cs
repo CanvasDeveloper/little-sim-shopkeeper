@@ -11,15 +11,15 @@ public enum GameState
 
 public static class GameStateHandler
 {
-    public static event Action<GameState> StateChanged;
+    public static event Action<GameState, object> StateChanged;
 
     private static GameState state;
 
-    public static void ChangeState(GameState newState)
+    public static void ChangeState(GameState newState, object data = null)
     {
         if(state == newState) return;
 
         state = newState;
-        StateChanged?.Invoke(state);
+        StateChanged?.Invoke(state, data);
     }
 }

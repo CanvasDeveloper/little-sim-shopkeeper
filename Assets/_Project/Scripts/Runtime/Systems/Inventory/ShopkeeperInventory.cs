@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 public class ShopkeeperInventory : InventoryBase
 {
     public override void RemoveFromInventory(ItemDataBase item, int amount)
     {
-        var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item);
+        var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item && slot.stack > 0);
 
         foundedItem.stack -= amount;
 
@@ -18,6 +19,6 @@ public class ShopkeeperInventory : InventoryBase
 
     public override void Open()
     {
-        GameStateHandler.ChangeState(GameState.Shop);
+        GameStateHandler.ChangeState(GameState.Shop, this);
     }
 }

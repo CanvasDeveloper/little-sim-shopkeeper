@@ -26,7 +26,6 @@ public abstract class InventoryBase : MonoBehaviour
             if (foundedItem != null)
             {
                 foundedItem.stack += amount;
-                items.Add(foundedItem);
                 TriggerAddedEvent(foundedItem);
                 return;
             }

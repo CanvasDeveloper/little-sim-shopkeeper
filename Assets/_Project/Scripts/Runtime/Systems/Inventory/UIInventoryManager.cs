@@ -17,17 +17,23 @@ public class UIInventoryManager : MonoBehaviour
         GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
     }
 
-    private void GameStateHandler_StateChanged(GameState newState)
+    private void GameStateHandler_StateChanged(GameState newState, object data)
     {
         if(newState != GameState.Inventory)
         {
             return;
         }
 
+        Populate((PlayerInventory)data);
         Open();
     }
 
-    public void Open()
+    private void Populate(PlayerInventory data)
+    {
+        
+    }
+
+    private void Open()
     {
         canvas.SetActive(true);
     }
