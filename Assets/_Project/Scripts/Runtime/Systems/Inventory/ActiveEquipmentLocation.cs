@@ -1,9 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class ActiveEquipmentLocation
+namespace CanvasDEV.Runtime.Systems.Inventory
 {
-    public EquipType type;
-    public Animator animator;
+    [Serializable]
+    public class ActiveEquipmentLocation
+    {
+        public EquipType type;
+        public Animator animator;
+    }
 }

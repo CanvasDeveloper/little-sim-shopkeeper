@@ -1,3 +1,4 @@
+using CanvasDEV.Runtime.Systems.Interaction;
 using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour

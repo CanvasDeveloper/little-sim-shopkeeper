@@ -3,69 +3,72 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EquipmentInventory : InventoryBase
+namespace CanvasDEV.Runtime.Systems.Inventory
 {
-    public event Action OnUpdateEquipment;
-
-    [SerializeField] private EquipableData defaultData;
-
-    [SerializeField] private List<ActiveEquipmentLocation> activeEquipmentLocations;
-
-    private Dictionary<EquipType, EquippableItemData> equipItemDictionary = new();
-
-    private void Start()
+    public class EquipmentInventory : InventoryBase
     {
-        LoadDefaultEquipement();
-    }
+        public event Action OnUpdateEquipment;
 
-    private void LoadDefaultEquipement()
-    {
-        foreach(var equipLocation in activeEquipmentLocations)
+        [SerializeField] private EquipableData defaultData;
+
+        [SerializeField] private List<ActiveEquipmentLocation> activeEquipmentLocations;
+
+        private Dictionary<EquipType, EquippableItemData> equipItemDictionary = new();
+
+        private void Start()
         {
-            var foundedOverrider = defaultData.OverrideControllerArray.FirstOrDefault(x => x.equipItem.equipType == equipLocation.type);
-
-            if(foundedOverrider == null || foundedOverrider.equipItem.overrideControler == null)
-            {
-                continue;
-            }
-
-            equipLocation.animator.runtimeAnimatorController = foundedOverrider.equipItem.overrideControler;
+            LoadDefaultEquipement();
         }
-    }
 
-    public void EquipItem(EquippableItemData equipItem)
-    {
-        equipItemDictionary[equipItem.equipType] = equipItem;
+        private void LoadDefaultEquipement()
+        {
+            foreach (var equipLocation in activeEquipmentLocations)
+            {
+                var foundedOverrider = defaultData.OverrideControllerArray.FirstOrDefault(x => x.equipItem.equipType == equipLocation.type);
 
-        FindLocation(equipItem.equipType).animator.runtimeAnimatorController = equipItem.overrideControler;
+                if (foundedOverrider == null || foundedOverrider.equipItem.overrideControler == null)
+                {
+                    continue;
+                }
 
-        OnUpdateEquipment?.Invoke();
-    }
+                equipLocation.animator.runtimeAnimatorController = foundedOverrider.equipItem.overrideControler;
+            }
+        }
 
-    public void RemoveEquip(EquippableItemData equipItem)
-    {
-        if (!equipItemDictionary.ContainsKey(equipItem.equipType))
-            return;
+        public void EquipItem(EquippableItemData equipItem)
+        {
+            equipItemDictionary[equipItem.equipType] = equipItem;
 
-        equipItemDictionary.Remove(equipItem.equipType);
+            FindLocation(equipItem.equipType).animator.runtimeAnimatorController = equipItem.overrideControler;
 
-        FindLocation(equipItem.equipType).animator.runtimeAnimatorController = null;
+            OnUpdateEquipment?.Invoke();
+        }
 
-        OnUpdateEquipment?.Invoke();
-    }
+        public void RemoveEquip(EquippableItemData equipItem)
+        {
+            if (!equipItemDictionary.ContainsKey(equipItem.equipType))
+                return;
 
-    private ActiveEquipmentLocation FindLocation(EquipType equipType)
-    {
-        return activeEquipmentLocations.FirstOrDefault(x => x.type == equipType);
-    }
+            equipItemDictionary.Remove(equipItem.equipType);
 
-    public Dictionary<EquipType, EquippableItemData> GetItems()
-    {
-        return equipItemDictionary;
-    }
+            FindLocation(equipItem.equipType).animator.runtimeAnimatorController = null;
 
-    public override void Open()
-    {
-        
+            OnUpdateEquipment?.Invoke();
+        }
+
+        private ActiveEquipmentLocation FindLocation(EquipType equipType)
+        {
+            return activeEquipmentLocations.FirstOrDefault(x => x.type == equipType);
+        }
+
+        public Dictionary<EquipType, EquippableItemData> GetItems()
+        {
+            return equipItemDictionary;
+        }
+
+        public override void Open()
+        {
+
+        }
     }
 }

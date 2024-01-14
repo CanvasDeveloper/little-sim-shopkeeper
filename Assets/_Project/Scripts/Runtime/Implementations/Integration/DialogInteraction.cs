@@ -1,5 +1,7 @@
+using CanvasDEV.Runtime.Core.GameState;
 using CanvasDEV.Runtime.Core.Interfaces;
 using CanvasDEV.Runtime.Systems.DialogSystem.Core;
+using CanvasDEV.Runtime.Systems.Interaction;
 using System.Collections.Generic;
 using UnityEngine;
 

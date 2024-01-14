@@ -1,48 +1,51 @@
 using System;
 using UnityEngine;
 
-public abstract class Interactable : MonoBehaviour
+namespace CanvasDEV.Runtime.Systems.Interaction
 {
-    public event Action<Interactable, bool> OnInteract;
-    public event Action<Interactable> OnInteractableFounded;
-    public event Action<Interactable> OnInteractableLeave;
-
-    protected Interactor interactor;
-
-    public bool CanInteract { get; protected set; } = true;
-
-    public bool Interact()
+    public abstract class Interactable : MonoBehaviour
     {
-        bool sucess = InteractBehaviour();
+        public event Action<Interactable, bool> OnInteract;
+        public event Action<Interactable> OnInteractableFounded;
+        public event Action<Interactable> OnInteractableLeave;
 
-        OnInteract?.Invoke(this, sucess);
+        protected Interactor interactor;
 
-        return sucess;
-    }
+        public bool CanInteract { get; protected set; } = true;
 
-    public abstract bool InteractBehaviour();
+        public bool Interact()
+        {
+            bool sucess = InteractBehaviour();
 
-    public virtual void Founded(Interactor interactor)
-    {
-        this.interactor = interactor;
+            OnInteract?.Invoke(this, sucess);
 
-        OnInteractableFounded?.Invoke(this);
-    }
+            return sucess;
+        }
 
-    public virtual void Leave()
-    {
-        interactor = null;
+        public abstract bool InteractBehaviour();
 
-        OnInteractableLeave?.Invoke(this);   
-    }
+        public virtual void Founded(Interactor interactor)
+        {
+            this.interactor = interactor;
 
-    public virtual void EnableInteractable()
-    {
-        CanInteract = true;
-    }
+            OnInteractableFounded?.Invoke(this);
+        }
 
-    public virtual void DisableInteractable()
-    {
-        CanInteract = false;
+        public virtual void Leave()
+        {
+            interactor = null;
+
+            OnInteractableLeave?.Invoke(this);
+        }
+
+        public virtual void EnableInteractable()
+        {
+            CanInteract = true;
+        }
+
+        public virtual void DisableInteractable()
+        {
+            CanInteract = false;
+        }
     }
 }

@@ -1,71 +1,76 @@
-﻿using UnityEngine;
+﻿using CanvasDEV.Runtime.Core.GameState;
+using CanvasDEV.Runtime.Systems.Inventory;
+using UnityEngine;
 
-public class UIInventoryManager : MonoBehaviour
+namespace CanvasDEV.Runtime.Systems.Inventory.UI
 {
-    private EquipmentInventory _equipmentInventory;
-
-    [SerializeField] private GameObject canvas;
-
-    [SerializeField] private UIShopSlotBase[] inventorySlotInstances = new UIShopSlotBase[0];
-
-    private void Start()
+    public class UIInventoryManager : MonoBehaviour
     {
-        GameStateHandler.StateChanged += GameStateHandler_StateChanged;
+        private EquipmentInventory _equipmentInventory;
 
-        PlayerInventory.Instance.OnAddedItem += (newItem) => UpdateSlots();
-        PlayerInventory.Instance.OnRemovedItem += (newItem) => UpdateSlots();
-    
-        _equipmentInventory = PlayerInventory.Instance.GetComponentInChildren<EquipmentInventory>();
-    }
+        [SerializeField] private GameObject canvas;
 
-    private void OnDestroy()
-    {
-        GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
+        [SerializeField] private UIShopSlotBase[] inventorySlotInstances = new UIShopSlotBase[0];
 
-        if(PlayerInventory.Instance != null)
+        private void Start()
         {
-            PlayerInventory.Instance.OnAddedItem -= (newItem) => UpdateSlots();
-            PlayerInventory.Instance.OnRemovedItem -= (newItem) => UpdateSlots();
+            GameStateHandler.StateChanged += GameStateHandler_StateChanged;
+
+            PlayerInventory.Instance.OnAddedItem += (newItem) => UpdateSlots();
+            PlayerInventory.Instance.OnRemovedItem += (newItem) => UpdateSlots();
+
+            _equipmentInventory = PlayerInventory.Instance.GetComponentInChildren<EquipmentInventory>();
         }
-    }
 
-    private void GameStateHandler_StateChanged(GameState newState, object data)
-    {
-        if (newState != GameState.Inventory)
-            return;
-
-        UpdateSlots();
-        Open();
-    }
-
-    private void UpdateSlots()
-    {
-        var inventory = PlayerInventory.Instance.GetCurrentItems();
-
-        for (int i = 0; i < inventorySlotInstances.Length; i++)
+        private void OnDestroy()
         {
-            var slot = inventorySlotInstances[i];
-            var item = (i < inventory.Count) ? inventory[i] : null;
+            GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
 
-            slot.OnClicked -= PlayerEquip;
-            slot.SetItem(item);
-            slot.OnClicked += PlayerEquip;
+            if (PlayerInventory.Instance != null)
+            {
+                PlayerInventory.Instance.OnAddedItem -= (newItem) => UpdateSlots();
+                PlayerInventory.Instance.OnRemovedItem -= (newItem) => UpdateSlots();
+            }
         }
-    }
 
-    private void PlayerEquip(UIShopSlotBase slot)
-    {
-        _equipmentInventory.EquipItem((EquippableItemData)slot.GetItem().ItemData);
-    }
+        private void GameStateHandler_StateChanged(GameState newState, object data)
+        {
+            if (newState != GameState.Inventory)
+                return;
 
-    private void Open()
-    {
-        canvas.SetActive(true);
-    }
+            UpdateSlots();
+            Open();
+        }
 
-    public void Close()
-    {
-        GameStateHandler.ChangeState(GameState.Gameplay);
-        canvas.SetActive(false);
+        private void UpdateSlots()
+        {
+            var inventory = PlayerInventory.Instance.GetCurrentItems();
+
+            for (int i = 0; i < inventorySlotInstances.Length; i++)
+            {
+                var slot = inventorySlotInstances[i];
+                var item = i < inventory.Count ? inventory[i] : null;
+
+                slot.OnClicked -= PlayerEquip;
+                slot.SetItem(item);
+                slot.OnClicked += PlayerEquip;
+            }
+        }
+
+        private void PlayerEquip(UIShopSlotBase slot)
+        {
+            _equipmentInventory.EquipItem((EquippableItemData)slot.GetItem().ItemData);
+        }
+
+        private void Open()
+        {
+            canvas.SetActive(true);
+        }
+
+        public void Close()
+        {
+            GameStateHandler.ChangeState(GameState.Gameplay);
+            canvas.SetActive(false);
+        }
     }
 }

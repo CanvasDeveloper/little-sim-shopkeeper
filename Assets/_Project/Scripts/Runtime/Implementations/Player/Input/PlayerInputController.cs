@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using CanvasDEV.Runtime.Systems.Input.Interfaces;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

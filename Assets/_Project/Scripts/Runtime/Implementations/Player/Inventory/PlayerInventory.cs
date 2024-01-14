@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CanvasDEV.Runtime.Core.GameState;
+using CanvasDEV.Runtime.Systems.Inventory;
+using System;
 using UnityEngine;
 
 public class PlayerInventory : InventoryBase

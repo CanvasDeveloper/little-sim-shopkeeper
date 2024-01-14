@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using CanvasDEV.Runtime.Systems.Inventory;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

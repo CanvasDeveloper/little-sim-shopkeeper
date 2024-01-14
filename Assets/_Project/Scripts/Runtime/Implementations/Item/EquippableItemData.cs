@@ -1,4 +1,5 @@
 using CanvasDEV.Runtime.Core;
+using CanvasDEV.Runtime.Systems.Inventory;
 using UnityEngine;
 
 public enum EquipType

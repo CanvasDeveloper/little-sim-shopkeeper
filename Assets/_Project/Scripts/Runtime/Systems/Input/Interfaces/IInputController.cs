@@ -1,5 +1,8 @@
-﻿public interface IInputController
+﻿namespace CanvasDEV.Runtime.Systems.Input.Interfaces
 {
-    public void EnableInput();
-    public void DisableInput();
+    public interface IInputController
+    {
+        public void EnableInput();
+        public void DisableInput();
+    }
 }

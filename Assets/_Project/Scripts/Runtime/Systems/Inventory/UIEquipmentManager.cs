@@ -1,65 +1,70 @@
-﻿using System;
+﻿using CanvasDEV.Runtime.Core.GameState;
+using CanvasDEV.Runtime.Systems.Inventory;
+using System;
 using System.Linq;
 using UnityEngine;
 
-public class UIEquipmentManager : MonoBehaviour
+namespace CanvasDEV.Runtime.Systems.Inventory.UI
 {
-    private EquipmentInventory _playerEquipmentInventory;
-
-    [SerializeField] private UIEquippableSlot[] equipmentSlotInstances = new UIEquippableSlot[0];
-
-    private void Start()
+    public class UIEquipmentManager : MonoBehaviour
     {
-        GameStateHandler.StateChanged += GameStateHandler_StateChanged;
+        private EquipmentInventory _playerEquipmentInventory;
 
-        _playerEquipmentInventory = PlayerInventory.Instance.GetComponentInChildren<EquipmentInventory>();
+        [SerializeField] private UIEquippableSlot[] equipmentSlotInstances = new UIEquippableSlot[0];
 
-        _playerEquipmentInventory.OnUpdateEquipment += UpdateEquipmentSlots;
-    }
-
-    private void OnDestroy()
-    {
-        GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
-
-        _playerEquipmentInventory.OnUpdateEquipment -= UpdateEquipmentSlots;
-    }
-
-    private void GameStateHandler_StateChanged(GameState newState, object data)
-    {
-        if (newState != GameState.Inventory)
-            return;
-
-        UpdateEquipmentSlots();
-    }
-
-    private void UpdateEquipmentSlots()
-    {
-        var items = _playerEquipmentInventory.GetItems();
-
-        foreach (var item in items)
+        private void Start()
         {
-            var slot = equipmentSlotInstances.FirstOrDefault(x => x.GetEquipeLocation() == item.Key);
+            GameStateHandler.StateChanged += GameStateHandler_StateChanged;
 
-            var tempItem = new InventoryItemData
+            _playerEquipmentInventory = PlayerInventory.Instance.GetComponentInChildren<EquipmentInventory>();
+
+            _playerEquipmentInventory.OnUpdateEquipment += UpdateEquipmentSlots;
+        }
+
+        private void OnDestroy()
+        {
+            GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
+
+            _playerEquipmentInventory.OnUpdateEquipment -= UpdateEquipmentSlots;
+        }
+
+        private void GameStateHandler_StateChanged(GameState newState, object data)
+        {
+            if (newState != GameState.Inventory)
+                return;
+
+            UpdateEquipmentSlots();
+        }
+
+        private void UpdateEquipmentSlots()
+        {
+            var items = _playerEquipmentInventory.GetItems();
+
+            foreach (var item in items)
             {
-                ItemData = item.Value,
-                stack = 1
-            };
+                var slot = equipmentSlotInstances.FirstOrDefault(x => x.GetEquipeLocation() == item.Key);
 
-            slot.OnClicked -= PlayerRemove;
-            slot.SetItem(tempItem);
-            slot.OnClicked += PlayerRemove;
+                var tempItem = new InventoryItemData
+                {
+                    ItemData = item.Value,
+                    stack = 1
+                };
+
+                slot.OnClicked -= PlayerRemove;
+                slot.SetItem(tempItem);
+                slot.OnClicked += PlayerRemove;
+            }
         }
-    }
 
-    private void PlayerRemove(UIShopSlotBase slot)
-    {
-        if (slot.GetItem() == null)
+        private void PlayerRemove(UIShopSlotBase slot)
         {
-            return;
-        }
+            if (slot.GetItem() == null)
+            {
+                return;
+            }
 
-        _playerEquipmentInventory.RemoveEquip((EquippableItemData)slot.GetItem().ItemData);
-        slot.SetItem(null);
+            _playerEquipmentInventory.RemoveEquip((EquippableItemData)slot.GetItem().ItemData);
+            slot.SetItem(null);
+        }
     }
 }

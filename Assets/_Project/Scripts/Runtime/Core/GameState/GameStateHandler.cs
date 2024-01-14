@@ -1,30 +1,33 @@
 using System;
 
-public enum GameState
+namespace CanvasDEV.Runtime.Core.GameState
 {
-    Title,
-    Gameplay,
-    Chatting,
-    Inventory,
-    Shop,
-}
-
-public static class GameStateHandler
-{
-    public static event Action<GameState, object> StateChanged;
-
-    private static GameState state;
-
-    public static void ChangeState(GameState newState, object data = null)
+    public enum GameState
     {
-        if(state == newState) return;
-
-        state = newState;
-        StateChanged?.Invoke(state, data);
+        Title,
+        Gameplay,
+        Chatting,
+        Inventory,
+        Shop,
     }
 
-    public static GameState GetCurrentState()
+    public static class GameStateHandler
     {
-        return state;
+        public static event Action<GameState, object> StateChanged;
+
+        private static GameState state;
+
+        public static void ChangeState(GameState newState, object data = null)
+        {
+            if (state == newState) return;
+
+            state = newState;
+            StateChanged?.Invoke(state, data);
+        }
+
+        public static GameState GetCurrentState()
+        {
+            return state;
+        }
     }
 }

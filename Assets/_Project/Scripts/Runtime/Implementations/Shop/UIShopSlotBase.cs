@@ -1,4 +1,5 @@
-﻿using CanvasDEV.Runtime.Systems.UI.Core;
+﻿using CanvasDEV.Runtime.Systems.Inventory;
+using CanvasDEV.Runtime.Systems.UI.Core;
 using System;
 
 public class UIShopSlotBase : ButtonBase

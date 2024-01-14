@@ -1,3 +1,4 @@
+using CanvasDEV.Runtime.Systems.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 

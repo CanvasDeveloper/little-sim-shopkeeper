@@ -1,3 +1,4 @@
+using CanvasDEV.Runtime.Core.GameState;
 using UnityEngine;
 
 public class InputBlocker : MonoBehaviour

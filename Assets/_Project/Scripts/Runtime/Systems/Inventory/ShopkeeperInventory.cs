@@ -1,35 +1,39 @@
-﻿using System.Linq;
+﻿using CanvasDEV.Runtime.Core.GameState;
+using System.Linq;
 
-public class ShopkeeperInventory : InventoryBase
+namespace CanvasDEV.Runtime.Systems.Inventory
 {
-    public override void RemoveFromInventory(ItemDataBase item, int amount)
+    public class ShopkeeperInventory : InventoryBase
     {
-        var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item && slot.stack > 0);
-
-        foundedItem.stack -= amount;
-
-        if (foundedItem.stack <= 0)
+        public override void RemoveFromInventory(ItemDataBase item, int amount)
         {
-            foundedItem.stack = 0;
+            var foundedItem = items.FirstOrDefault(slot => slot.ItemData == item && slot.stack > 0);
+
+            foundedItem.stack -= amount;
+
+            if (foundedItem.stack <= 0)
+            {
+                foundedItem.stack = 0;
+            }
+
+            TriggerRemoveEvent(foundedItem);
         }
 
-        TriggerRemoveEvent(foundedItem);
-    }
-
-    public void ForceRemoveEmptyItems()
-    {
-        for (int i = items.Count -1; i >= 0; i--)
+        public void ForceRemoveEmptyItems()
         {
-            InventoryItemData item = items[i];
-            if (item.stack <= 0)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
-                items.Remove(item);
+                InventoryItemData item = items[i];
+                if (item.stack <= 0)
+                {
+                    items.Remove(item);
+                }
             }
         }
-    }
 
-    public override void Open()
-    {
-        GameStateHandler.ChangeState(GameState.Shop, this);
+        public override void Open()
+        {
+            GameStateHandler.ChangeState(GameState.Shop, this);
+        }
     }
 }
