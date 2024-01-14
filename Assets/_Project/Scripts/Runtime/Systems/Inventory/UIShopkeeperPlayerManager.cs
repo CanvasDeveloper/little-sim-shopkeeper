@@ -1,52 +1,39 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class UIShopkeeperPlayerManager: MonoBehaviour
 {
-    private PlayerInventory _playerInventory;
     private ShopkeeperInventory _shopkeeperInventory;
 
-    [SerializeField] private UIShopSlotBase[] inventorySlotInstances = new UIShopSlotBase[0];
+    [SerializeField] private List<UIShopSlotBase> inventorySlotInstances = new();
 
     private void Start()
     {
         GameStateHandler.StateChanged += GameStateHandler_StateChanged;
 
-        _playerInventory = FindObjectOfType<PlayerInventory>();
-
-        _playerInventory.OnAddedItem += (newItem) => UpdateSlots();
-        _playerInventory.OnRemovedItem += (newItem) => UpdateSlots();
+        PlayerInventory.Instance.OnAddedItem += (newItem) => UpdateSlots();
+        PlayerInventory.Instance.OnRemovedItem += (newItem) => UpdateSlots();
     }
 
     private void OnDestroy()
     {
         GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
 
-        foreach (var slot in inventorySlotInstances)
-        {
-            slot.OnClicked -= PlayerSell;
-        }
+        inventorySlotInstances.ForEach(x => x.OnClicked -= PlayerSell);
 
-        _playerInventory.OnAddedItem -= (newItem) => UpdateSlots();
-        _playerInventory.OnRemovedItem -= (newItem) => UpdateSlots();
+        if (PlayerInventory.Instance != null)
+        {
+            PlayerInventory.Instance.OnAddedItem -= (newItem) => UpdateSlots();
+            PlayerInventory.Instance.OnRemovedItem -= (newItem) => UpdateSlots();
+        }
     }
 
     private void GameStateHandler_StateChanged(GameState newState, object data)
     {
         if (newState != GameState.Shop)
-        {
             return;
-        }
 
         _shopkeeperInventory = (ShopkeeperInventory)data;
-
-        PopulatePlayerInventory(_playerInventory);
-    }
-
-    private void PopulatePlayerInventory(PlayerInventory playerInventory)
-    {
-        _playerInventory = playerInventory;
-
-        var inventory = playerInventory.GetCurrentItems();
 
         UpdateSlots();
     }
@@ -54,27 +41,28 @@ public class UIShopkeeperPlayerManager: MonoBehaviour
     private void PlayerSell(UIShopSlotBase slot)
     {
         if(slot.GetItem() == null)
-        {
             return;
-        }
 
-        _playerInventory.AddMoney(slot.GetItem().ItemData.cost);
+        var cachedItem = slot.GetItem().ItemData;
 
-        _playerInventory.RemoveFromInventory(slot.GetItem().ItemData, 1);
-        _shopkeeperInventory.AddToInventory(slot.GetItem().ItemData, 1);
+        PlayerInventory.Instance.AddMoney(cachedItem.cost);
+        PlayerInventory.Instance.RemoveFromInventory(cachedItem, 1);
+
+        _shopkeeperInventory.AddToInventory(cachedItem, 1);
 
         UpdateSlots();
     }
 
     private void UpdateSlots()
     {
-        var inventory = _playerInventory.GetCurrentItems();
+        var inventory = PlayerInventory.Instance.GetCurrentItems();
 
-        for (int i = 0; i < inventorySlotInstances.Length; i++)
+        for (int i = 0; i < inventorySlotInstances.Count; i++)
         {
             var slot = inventorySlotInstances[i];
             var item = (i < inventory.Count) ? inventory[i] : null;
 
+            slot.OnClicked -= PlayerSell;
             slot.SetItem(item);
             slot.OnClicked += PlayerSell;
         }

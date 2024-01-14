@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIShopkeeperManager : MonoBehaviour
 {
-    private PlayerInventory _playerInventory;
     private ShopkeeperInventory _shopkeeperInventory;
 
     [SerializeField] private GameObject canvas;
@@ -18,28 +16,18 @@ public class UIShopkeeperManager : MonoBehaviour
     private void Start()
     {
         GameStateHandler.StateChanged += GameStateHandler_StateChanged;
-
-        _playerInventory = FindObjectOfType<PlayerInventory>();
     }
 
     private void OnDestroy()
     {
         GameStateHandler.StateChanged -= GameStateHandler_StateChanged;
-
-        foreach (var slot in _shopSlotInstances)
-        {
-            slot.OnClicked -= PlayerBuy;
-        }
-
-        _shopSlotInstances.Clear();
+        ClearOnDestroyShop();
     }
 
     private void GameStateHandler_StateChanged(GameState newState, object data)
     {
         if (newState != GameState.Shop)
-        {
             return;
-        }
 
         _shopkeeperInventory = (ShopkeeperInventory)data;
         _shopkeeperInventory.OnAddedItem += (newItem) => UpdateSlots();
@@ -64,6 +52,7 @@ public class UIShopkeeperManager : MonoBehaviour
         foreach(var item in inventory)
         {
             var slot = Instantiate(shopSlotPrefab, slotParent);
+            slot.OnClicked -= PlayerBuy;
             slot.SetItem(item);
             slot.OnClicked += PlayerBuy;
 
@@ -73,25 +62,22 @@ public class UIShopkeeperManager : MonoBehaviour
 
     private void PlayerBuy(UIShopSlotBase slot)
     {
-        if(!_playerInventory.HasMoneyTo(slot.GetItem().ItemData.cost))
-        {
+        var cachedItem = slot.GetItem().ItemData;
+
+        if (!PlayerInventory.Instance.HasMoneyTo(cachedItem.cost))
             return;
-        }
 
-        _playerInventory.RemoveMoney(slot.GetItem().ItemData.cost);
+        PlayerInventory.Instance.RemoveMoney(cachedItem.cost);
+        PlayerInventory.Instance.AddToInventory(cachedItem, 1);
 
-        _shopkeeperInventory.RemoveFromInventory(slot.GetItem().ItemData, 1);
-        _playerInventory.AddToInventory(slot.GetItem().ItemData, 1);
+        _shopkeeperInventory.RemoveFromInventory(cachedItem, 1);
 
         UpdateSlots();
     }
 
     private void UpdateSlots()
     {
-        foreach (var instance in _shopSlotInstances)
-        {
-            instance.SetItem(instance.GetItem());
-        }
+        _shopSlotInstances.ForEach(x => x.SetItem(x.GetItem()));
     }
 
     public void Open()
@@ -103,6 +89,8 @@ public class UIShopkeeperManager : MonoBehaviour
 
     public void Close()
     {
+        _shopkeeperInventory.ForceRemoveEmptyItems();
+
         _shopkeeperInventory.OnAddedItem -= (newItem) => UpdateSlots();
         _shopkeeperInventory.OnRemovedItem -= (newItem) => UpdateSlots();
 
@@ -110,5 +98,17 @@ public class UIShopkeeperManager : MonoBehaviour
 
         GameStateHandler.ChangeState(GameState.Gameplay);
         canvas.SetActive(false);
+    }
+
+    private void ClearOnDestroyShop()
+    {
+        _shopSlotInstances.ForEach(x => x.OnClicked -= PlayerBuy);
+        _shopSlotInstances.Clear();
+
+        if (_shopkeeperInventory != null)
+        {
+            _shopkeeperInventory.OnAddedItem -= (newItem) => UpdateSlots();
+            _shopkeeperInventory.OnRemovedItem -= (newItem) => UpdateSlots();
+        }
     }
 }

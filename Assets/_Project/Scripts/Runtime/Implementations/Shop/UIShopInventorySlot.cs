@@ -6,6 +6,7 @@ public class UIShopInventorySlot : UIShopSlotBase
 {
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI sellPriceGUI;
+    [SerializeField] private GameObject sellIcon;
     [SerializeField] private TextMeshProUGUI amountGUI;
 
     public override void SetItem(InventoryItemData newItem)
@@ -18,6 +19,7 @@ public class UIShopInventorySlot : UIShopSlotBase
             itemIcon.sprite = null;
             sellPriceGUI.text = "";
             amountGUI.text = "";
+            sellIcon.SetActive(false);
 
             button.interactable = false;
 
@@ -26,6 +28,7 @@ public class UIShopInventorySlot : UIShopSlotBase
 
         var cachedScriptable = _inventoryItemData.ItemData;
 
+        sellIcon.SetActive(true);
         itemIcon.enabled = true;
         itemIcon.sprite = cachedScriptable.itemIcon;
         sellPriceGUI.text = cachedScriptable.cost.ToString();

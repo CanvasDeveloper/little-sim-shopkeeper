@@ -3,6 +3,18 @@ using UnityEngine;
 
 public class PlayerInventory : InventoryBase
 {
+    public static PlayerInventory Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
+
+
     public event Action<int> OnUpdateMoney;
 
     [SerializeField] private int playerStartMoney = 100;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 public class ShopkeeperInventory : InventoryBase
 {
@@ -15,6 +14,18 @@ public class ShopkeeperInventory : InventoryBase
         }
 
         TriggerRemoveEvent(foundedItem);
+    }
+
+    public void ForceRemoveEmptyItems()
+    {
+        for (int i = items.Count -1; i >= 0; i--)
+        {
+            InventoryItemData item = items[i];
+            if (item.stack <= 0)
+            {
+                items.Remove(item);
+            }
+        }
     }
 
     public override void Open()

@@ -22,4 +22,9 @@ public static class GameStateHandler
         state = newState;
         StateChanged?.Invoke(state, data);
     }
+
+    public static GameState GetCurrentState()
+    {
+        return state;
+    }
 }
