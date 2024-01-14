@@ -6,6 +6,7 @@ using NaughtyAttributes;
 using CanvasDEV.Runtime.Systems.DialogSystem.UI;
 using CanvasDEV.Runtime.Systems.DialogSystem.Utilities;
 using CanvasDEV.Runtime.Core.Interfaces;
+using UnityEngine.Events;
 
 namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
 {
@@ -32,6 +33,8 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
 
         [HorizontalLine(2, EColor.Green)]
         [SerializeField] private InputActionReference passButtonReference;
+
+        [SerializeField] private UnityEvent onFinishDialog;
 
         public DialogData dialogData;
 
@@ -82,6 +85,7 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
         {
             Started = true;
 
+            passButtonReference.action.Enable();
             passButtonReference.action.started += PassText;
 
             StopAllCoroutines();
@@ -215,9 +219,11 @@ namespace CanvasDEV.Runtime.Systems.DialogSystem.Core
             _currentBlocker?.UnBlock();
             _currentBlocker = null;
 
+            onFinishDialog?.Invoke();
             OnDialogFinished?.Invoke(allOptionsSelected);
 
             passButtonReference.action.started -= PassText;
+            passButtonReference.action.Disable();
 
             Started = false;
         }

@@ -7,35 +7,41 @@ public abstract class Interactable : MonoBehaviour
     public event Action<Interactable> OnInteractableFounded;
     public event Action<Interactable> OnInteractableLeave;
 
+    protected Interactor interactor;
+
     public bool CanInteract { get; protected set; } = true;
 
     public bool Interact()
     {
         bool sucess = InteractBehaviour();
 
-        OnInteract(this, sucess);
+        OnInteract?.Invoke(this, sucess);
 
         return sucess;
     }
 
     public abstract bool InteractBehaviour();
 
-    public void Founded()
+    public virtual void Founded(Interactor interactor)
     {
+        this.interactor = interactor;
+
         OnInteractableFounded?.Invoke(this);
     }
 
-    public void Leave()
+    public virtual void Leave()
     {
+        interactor = null;
+
         OnInteractableLeave?.Invoke(this);   
     }
 
-    public void EnableInteractable()
+    public virtual void EnableInteractable()
     {
         CanInteract = true;
     }
 
-    public void DisableInteractable()
+    public virtual void DisableInteractable()
     {
         CanInteract = false;
     }
