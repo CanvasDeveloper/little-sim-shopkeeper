@@ -13,6 +13,9 @@ namespace CanvasDEV.Runtime.Systems.Interaction
         {
             if (collision.TryGetComponent(out Interactable interactable))
             {
+                if (interactable.CanInteract == false)
+                    return;
+
                 _currentInteractable = interactable;
                 _currentInteractable.Founded(this);
             }
@@ -22,6 +25,7 @@ namespace CanvasDEV.Runtime.Systems.Interaction
         {
             if (collision.TryGetComponent(out Interactable interactable))
             {
+
                 if (_currentInteractable != null)
                 {
                     _currentInteractable.Leave();

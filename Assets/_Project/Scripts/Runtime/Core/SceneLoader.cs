@@ -7,10 +7,21 @@ using CanvasDEV.Runtime.Core.GameState;
 public class SceneLoader : Singleton<SceneLoader>
 {
     [SerializeField] private TransitionSettings transition;
+    [SerializeField] private bool autoNext;
 
     private void Start()
     {
         TransitionManager.Instance().onTransitionBegin += ChangeGameState;
+
+        if(autoNext)
+        {
+            LoadNextScene();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        TransitionManager.Instance().onTransitionBegin -= ChangeGameState;
     }
 
     public void LoadNextScene()
@@ -22,7 +33,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
     public void FakeTransition()
     {
-        TransitionManager.Instance().Transition(transition, 0f);
+        TransitionManager.Instance().Transition(transition, 0.5f);
     }
 
     public void LoadScene(int sceneToLoad)
